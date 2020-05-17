@@ -92,7 +92,7 @@ void save_fpu(struct task_struct *tsk)
 	disable_fpu();
 }
 
-static void restore_fpu(struct task_struct *tsk)
+void restore_fpu(struct task_struct *tsk)
 {
 	unsigned long dummy;
 
