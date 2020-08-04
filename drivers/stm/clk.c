@@ -334,20 +334,19 @@ int clk_set_parent(struct clk *clk, struct clk *parent)
 
 	ret = __clk_set_parent(clk, parent);
 
+	/* update the parent field */
 	if (!ret) {
-		/* update the parent/child lists */
 		list_del(&clk->children_node);
 		clk->parent = parent;
 		list_add(&clk->children_node, &clk->parent->children);
-
 		clk_propagate(clk);
 	}
+
 	if (clk->usage_counter)
 		/* disable the right parent if required */
 		_clk_disable(ret ? parent : old_parent);
 
 	spin_unlock_irqrestore(&clock_lock, flags);
-
 	return ret;
 }
 EXPORT_SYMBOL(clk_set_parent);

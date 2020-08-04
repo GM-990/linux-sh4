@@ -642,35 +642,35 @@ static void stm_gpio_dbg_show(struct seq_file *s, struct gpio_chip *chip)
 
 		seq_printf(s, " %-3d: PIO%d.%d: ", gpio, port_no, pin_no);
 
-		switch (get__PIO_PCx(port->base, pin_no)) {
-		case value__PIO_PCx__INPUT_WEAK_PULL_UP():
-			direction = "input (weak pull up)";
-			break;
-		case value__PIO_PCx__BIDIR_OPEN_DRAIN():
-		case value__PIO_PCx__BIDIR_OPEN_DRAIN__alt():
-			direction = "bidirectional (open drain)";
-			break;
-		case value__PIO_PCx__OUTPUT_PUSH_PULL():
-			direction = "output (push-pull)";
-			break;
-		case value__PIO_PCx__INPUT_HIGH_IMPEDANCE():
-		case value__PIO_PCx__INPUT_HIGH_IMPEDANCE__alt():
-			direction = "input (high impedance)";
-			break;
-		case value__PIO_PCx__ALTERNATIVE_OUTPUT_PUSH_PULL():
-			direction = "alternative function output "
-					"(push-pull)";
-			break;
-		case value__PIO_PCx__ALTERNATIVE_BIDIR_OPEN_DRAIN():
-			direction = "alternative function bidirectional "
-					"(open drain)";
-			break;
-		default:
-			/* Should never get here... */
-			WARN_ON(1);
-			direction = "unknown configuration";
-			break;
-		}
+	switch (get__PIO_PCx(port->base, pin_no)) {
+	case value__PIO_PCx__INPUT_WEAK_PULL_UP():
+		direction = "input (weak pull up)";
+		break;
+	case value__PIO_PCx__BIDIR_OPEN_DRAIN():
+	case value__PIO_PCx__BIDIR_OPEN_DRAIN__alt():
+		direction = "bidirectional (open drain)";
+		break;
+	case value__PIO_PCx__OUTPUT_PUSH_PULL():
+		direction = "output (push-pull)";
+		break;
+	case value__PIO_PCx__INPUT_HIGH_IMPEDANCE():
+	case value__PIO_PCx__INPUT_HIGH_IMPEDANCE__alt():
+		direction = "input (high impedance)";
+		break;
+	case value__PIO_PCx__ALTERNATIVE_OUTPUT_PUSH_PULL():
+		direction = "alternative function output "
+			"(push-pull)";
+		break;
+	case value__PIO_PCx__ALTERNATIVE_BIDIR_OPEN_DRAIN():
+		direction = "alternative function bidirectional "
+			"(open drain)";
+		break;
+	default:
+		/* Should never get here... */
+		__WARN();
+		direction = "unknown configuration";
+		break;
+	}
 
 		seq_printf(s, "%s, ", direction);
 

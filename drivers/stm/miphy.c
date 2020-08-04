@@ -34,8 +34,7 @@ static LIST_HEAD(miphy_style_list);
 /****************************************************************************
  * 	MiPHY Generic functions available for other drivers
  */
-
-static void stm_miphy_write(struct stm_miphy *miphy, u8 addr, u8 data)
+void stm_miphy_write(struct stm_miphy *miphy, u8 addr, u8 data)
 {
 	struct stm_miphy_device *dev = miphy->dev;
 	int port = miphy->port;
@@ -43,7 +42,7 @@ static void stm_miphy_write(struct stm_miphy *miphy, u8 addr, u8 data)
 	dev->reg_write(port, addr, data);
 }
 
-static u8 stm_miphy_read(struct stm_miphy *miphy, u8 addr)
+u8 stm_miphy_read(struct stm_miphy *miphy, u8 addr)
 {
 	struct stm_miphy_device *dev = miphy->dev;
 	int port = miphy->port;
@@ -63,6 +62,7 @@ int stm_miphy_sata_status(struct stm_miphy *miphy)
 	mutex_unlock(&dev->mutex);
 
 	return rval;
+
 }
 EXPORT_SYMBOL(stm_miphy_sata_status);
 
@@ -144,14 +144,13 @@ struct stm_miphy *stm_miphy_claim(int port, enum miphy_mode mode,
 
 	style = stm_miphy_style_find(miphy->dev->style_id);
 	if (!style) {
-		pr_err("No style for MiPHY %d found \n", miphy->port);
+		pr_err("No style for MiPHY %d found\n", miphy->port);
 		goto _on_error;
 	}
 	miphy->style = style;
 	miphy->owner = owner;
-
 	if (style->probe(miphy)) {
-		pr_err("Unable to probe MiPHY %d style \n", miphy->port);
+		pr_err("Unable to probe MiPHY %d style\n", miphy->port);
 		goto _on_error;
 	}
 
@@ -247,7 +246,8 @@ int miphy_register_device(struct stm_miphy_device *miphy_dev)
 
 int miphy_unregister_device(struct stm_miphy_device *miphy_dev)
 {
-	struct stm_miphy_style *style = stm_miphy_style_find(miphy_dev->style_id);
+	struct stm_miphy_style *style =
+		stm_miphy_style_find(miphy_dev->style_id);
 
 	if (style)
 		style->remove();

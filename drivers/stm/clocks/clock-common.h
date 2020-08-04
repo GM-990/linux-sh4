@@ -24,8 +24,8 @@ Copyright (C) 2008-12 STMicroelectronics
    ======================================================================== */
 
 int clk_pll800c65_get_params(unsigned long input, unsigned long output,
-			     unsigned long *mdiv, unsigned long *ndiv,
-			     unsigned long *pdiv);
+			  unsigned long *mdiv, unsigned long *ndiv,
+			  unsigned long *pdiv);
 
 /* ========================================================================
    Name:	clk_pll800c65_get_rate()
@@ -36,8 +36,8 @@ int clk_pll800c65_get_params(unsigned long input, unsigned long output,
    ======================================================================== */
 
 int clk_pll800c65_get_rate(unsigned long input, unsigned long mdiv,
-			   unsigned long ndiv, unsigned long pdiv,
-			   unsigned long *rate);
+			unsigned long ndiv, unsigned long pdiv,
+			unsigned long *rate);
 
 /* ========================================================================
    Name:	clk_pll1200c32_get_params()
@@ -49,8 +49,8 @@ int clk_pll800c65_get_rate(unsigned long input, unsigned long mdiv,
    ======================================================================== */
 
 int clk_pll1200c32_get_params(unsigned long input, unsigned long output,
-			      unsigned long *idf, unsigned long *ldf,
-			      unsigned long *odf);
+			   unsigned long *idf, unsigned long *ldf,
+			   unsigned long *odf);
 
 /* ========================================================================
    Name:	clk_pll1200c32_get_rate()
@@ -61,8 +61,8 @@ int clk_pll1200c32_get_params(unsigned long input, unsigned long output,
    ======================================================================== */
 
 int clk_pll1200c32_get_rate(unsigned long input, unsigned long idf,
-			    unsigned long ldf, unsigned long odf,
-			    unsigned long *rate);
+			unsigned long ldf, unsigned long odf,
+			unsigned long *rate);
 
 /* ========================================================================
    Name:	clk_pll1600c45_get_params(), PL1600 CMOS45
@@ -73,8 +73,8 @@ int clk_pll1200c32_get_rate(unsigned long input, unsigned long idf,
    ======================================================================== */
 
 int clk_pll1600c45_get_params(unsigned long input, unsigned long output,
-			      unsigned long *idf, unsigned long *ndiv,
-			      unsigned long *cp);
+			   unsigned long *idf, unsigned long *ndiv,
+			   unsigned long *cp);
 
 /* ========================================================================
    Name:	clk_pll1600c45_get_phi_params()
@@ -85,8 +85,8 @@ int clk_pll1600c45_get_params(unsigned long input, unsigned long output,
    ======================================================================== */
 
 int clk_pll1600c45_get_phi_params(unsigned long input, unsigned long output,
-				  unsigned long *idf, unsigned long *ndiv,
-				  unsigned long *odf, unsigned long *cp);
+			   unsigned long *idf, unsigned long *ndiv,
+			   unsigned long *odf, unsigned long *cp);
 
 /* ========================================================================
    Name:	clk_pll1600c45_get_rate()
@@ -108,8 +108,8 @@ int clk_pll1600c45_get_rate(unsigned long input, unsigned long idf,
    ======================================================================== */
 
 int clk_pll1600c45_get_phi_rate(unsigned long input, unsigned long idf,
-				unsigned long ndiv, unsigned long odf,
-				unsigned long *rate);
+			    unsigned long ndiv, unsigned long odf,
+			    unsigned long *rate);
 
 /* ========================================================================
    Name:	clk_pll1600c65_get_params()
@@ -120,7 +120,7 @@ int clk_pll1600c45_get_phi_rate(unsigned long input, unsigned long idf,
    ======================================================================== */
 
 int clk_pll1600c65_get_params(unsigned long input, unsigned long output,
-			      unsigned long *mdiv, unsigned long *ndiv);
+			   unsigned long *mdiv, unsigned long *ndiv);
 
 /* ========================================================================
    Name:	clk_pll1600c65_get_rate()
@@ -132,7 +132,7 @@ int clk_pll1600c65_get_params(unsigned long input, unsigned long output,
    ======================================================================== */
 
 int clk_pll1600c65_get_rate(unsigned long input, unsigned long mdiv,
-			    unsigned long ndiv, unsigned long *rate);
+			 unsigned long ndiv, unsigned long *rate);
 
 /* ========================================================================
    Name:	clk_pll3200c32_get_params()
@@ -143,8 +143,8 @@ int clk_pll1600c65_get_rate(unsigned long input, unsigned long mdiv,
    ======================================================================== */
 
 int clk_pll3200c32_get_params(unsigned long input, unsigned long output,
-			      unsigned long *idf, unsigned long *ndiv,
-			      unsigned long *cp);
+			   unsigned long *idf, unsigned long *ndiv,
+			   unsigned long *cp);
 
 /* ========================================================================
    Name:	clk_pll3200c32_get_rate()
@@ -155,7 +155,7 @@ int clk_pll3200c32_get_params(unsigned long input, unsigned long output,
    ======================================================================== */
 
 int clk_pll3200c32_get_rate(unsigned long input, unsigned long idf,
-			    unsigned long ndiv, unsigned long *rate);
+			 unsigned long ndiv, unsigned long *rate);
 
 /* ========================================================================
    Name:	clk_fs216c65_get_params()
@@ -166,8 +166,8 @@ int clk_pll3200c32_get_rate(unsigned long input, unsigned long idf,
    ======================================================================== */
 
 int clk_fs216c65_get_params(unsigned long input, unsigned long output,
-			    unsigned long *md, unsigned long *pe,
-			    unsigned long *sdiv);
+			unsigned long *md, unsigned long *pe,
+			unsigned long *sdiv);
 
 /* ========================================================================
    Name:	clk_fs216c65_get_rate()
@@ -186,7 +186,7 @@ int clk_fs216c65_get_rate(unsigned long input, unsigned long pe, unsigned long m
    ======================================================================== */
 
 int clk_fs660c32_vco_get_params(unsigned long input, unsigned long output,
-				unsigned long *ndiv);
+			     unsigned long *ndiv);
 
 /* ========================================================================
    Name:	clk_fs660c32_dig_get_params()
@@ -219,8 +219,8 @@ int clk_fs660c32_vco_get_rate(unsigned long input, unsigned long ndiv,
    ======================================================================== */
 
 int clk_fs660c32_get_rate(unsigned long input, unsigned long nsdiv,
-			  unsigned long md, unsigned long pe,
-			  unsigned long sdiv, unsigned long *rate);
+			unsigned long md, unsigned long pe,
+			unsigned long sdiv, unsigned long *rate);
 
 /* ========================================================================
    Name:        clk_register_table
@@ -236,11 +236,10 @@ int clk_register_table(struct clk *clks, int num, int enable);
    Returns:     Best div factor
    ======================================================================== */
 
-static inline unsigned long clk_best_div(unsigned long parent_rate,
-					 unsigned long rate)
+static inline unsigned long
+clk_best_div(unsigned long parent_rate, unsigned long rate)
 {
-	return parent_rate / rate +
-		((rate > (2 * (parent_rate % rate))) ? 0 : 1);
+	return parent_rate / rate + ((rate > (2*(parent_rate % rate))) ? 0 : 1);
 }
 
 #endif /* #ifndef __CLKLLA_COMMON_H */

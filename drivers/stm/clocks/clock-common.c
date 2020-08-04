@@ -719,7 +719,8 @@ int clk_fs216c65_get_params(unsigned long input, unsigned long output,
 				stop = 1;
 			}
 			p = P15 * 32 * nd * input * FS216_SCALING_FACTOR;
-			p = div64_u64(p, sd * ns * output * FS216_SCALING_FACTOR);
+			p = div64_u64(p, sd * ns * output *
+				FS216_SCALING_FACTOR);
 			p2 = P15 * (uint64_t)(m + 33);
 			if (p2 < p)
 				continue; /* p must be >= 0 */
@@ -856,7 +857,7 @@ int clk_fs660c32_dig_get_params(unsigned long input, unsigned long output,
 	 * In case nsdiv is hardwired, it must be set to 0xff before calling.
 	 *
 	 *    *nsdiv      ns.dec
-	 * 	ff	  computed by this algo
+	 *	ff	  computed by this algo
 	 *       0        3
 	 *       1        1
 	 */

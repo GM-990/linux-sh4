@@ -596,7 +596,7 @@ struct rq {
 
 static DEFINE_PER_CPU_SHARED_ALIGNED(struct rq, runqueues);
 
-static void check_preempt_curr(struct rq *rq, struct task_struct *p, int flags);
+static inline void check_preempt_curr(struct rq *rq, struct task_struct *p, int flags);
 
 static inline int cpu_of(struct rq *rq)
 {
@@ -624,7 +624,7 @@ static inline int cpu_of(struct rq *rq)
 #define raw_rq()		(&__raw_get_cpu_var(runqueues))
 
 static u64 irq_time_cpu(int cpu);
-static void sched_irq_time_avg_update(struct rq *rq, u64 irq_time);
+static inline void sched_irq_time_avg_update(struct rq *rq, u64 irq_time);
 
 inline void update_rq_clock(struct rq *rq)
 {
