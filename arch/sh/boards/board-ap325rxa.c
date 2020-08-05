@@ -160,21 +160,21 @@ static void ap320_wvga_power_on(void *board_data)
 	msleep(100);
 
 	/* ASD AP-320/325 LCD ON */
-	__raw_writew(FPGA_LCDREG_VAL, FPGA_LCDREG);
+	ctrl_outw(FPGA_LCDREG_VAL, FPGA_LCDREG);
 
 	/* backlight */
 	gpio_set_value(GPIO_PTS3, 0);
-	__raw_writew(0x100, FPGA_BKLREG);
+	ctrl_outw(0x100, FPGA_BKLREG);
 }
 
 static void ap320_wvga_power_off(void *board_data)
 {
 	/* backlight */
-	__raw_writew(0, FPGA_BKLREG);
+	ctrl_outw(0, FPGA_BKLREG);
 	gpio_set_value(GPIO_PTS3, 1);
 
 	/* ASD AP-320/325 LCD OFF */
-	__raw_writew(0, FPGA_LCDREG);
+	ctrl_outw(0, FPGA_LCDREG);
 }
 
 static struct sh_mobile_lcdc_info lcdc_info = {
@@ -554,7 +554,7 @@ static int __init ap325rxa_devices_setup(void)
 	gpio_request(GPIO_PTZ4, NULL);
 	gpio_direction_output(GPIO_PTZ4, 0); /* SADDR */
 
-	__raw_writew(__raw_readw(PORT_MSELCRB) & ~0x0001, PORT_MSELCRB);
+	ctrl_outw(ctrl_inw(PORT_MSELCRB) & ~0x0001, PORT_MSELCRB);
 
 	/* FLCTL */
 	gpio_request(GPIO_FN_FCE, NULL);
@@ -572,9 +572,9 @@ static int __init ap325rxa_devices_setup(void)
 	gpio_request(GPIO_FN_FWE, NULL);
 	gpio_request(GPIO_FN_FRB, NULL);
 
-	__raw_writew(0, PORT_HIZCRC);
-	__raw_writew(0xFFFF, PORT_DRVCRA);
-	__raw_writew(0xFFFF, PORT_DRVCRB);
+	ctrl_outw(0, PORT_HIZCRC);
+	ctrl_outw(0xFFFF, PORT_DRVCRA);
+	ctrl_outw(0xFFFF, PORT_DRVCRB);
 
 	platform_resource_setup_memory(&ceu_device, "ceu", 4 << 20);
 

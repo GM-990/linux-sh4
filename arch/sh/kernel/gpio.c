@@ -35,11 +35,11 @@ static unsigned long gpio_read_raw_reg(unsigned long reg,
 {
 	switch (reg_width) {
 	case 8:
-		return __raw_readb(reg);
+		return ctrl_inb(reg);
 	case 16:
-		return __raw_readw(reg);
+		return ctrl_inw(reg);
 	case 32:
-		return __raw_readl(reg);
+		return ctrl_inl(reg);
 	}
 
 	BUG();
@@ -52,13 +52,13 @@ static void gpio_write_raw_reg(unsigned long reg,
 {
 	switch (reg_width) {
 	case 8:
-		__raw_writeb(data, reg);
+		ctrl_outb(data, reg);
 		return;
 	case 16:
-		__raw_writew(data, reg);
+		ctrl_outw(data, reg);
 		return;
 	case 32:
-		__raw_writel(data, reg);
+		ctrl_outl(data, reg);
 		return;
 	}
 
@@ -125,13 +125,13 @@ static void gpio_write_reg(unsigned long reg, unsigned long reg_width,
 
 	switch (reg_width) {
 	case 8:
-		__raw_writeb((__raw_readb(reg) & mask) | value, reg);
+		ctrl_outb((ctrl_inb(reg) & mask) | value, reg);
 		break;
 	case 16:
-		__raw_writew((__raw_readw(reg) & mask) | value, reg);
+		ctrl_outw((ctrl_inw(reg) & mask) | value, reg);
 		break;
 	case 32:
-		__raw_writel((__raw_readl(reg) & mask) | value, reg);
+		ctrl_outl((ctrl_inl(reg) & mask) | value, reg);
 		break;
 	}
 }

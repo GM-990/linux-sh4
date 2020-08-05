@@ -184,31 +184,31 @@ static unsigned long long copy_word(unsigned long src_addr, int src_len,
 
 	switch (src_len) {
 	case 1:
-		tmp = __raw_readb(src_addr);
+		tmp = ctrl_inb(src_addr);
 		break;
 	case 2:
-		tmp = __raw_readw(src_addr);
+		tmp = ctrl_inw(src_addr);
 		break;
 	case 4:
-		tmp = __raw_readl(src_addr);
+		tmp = ctrl_inl(src_addr);
 		break;
 	case 8:
-		tmp = __raw_readq(src_addr);
+		tmp = ctrl_inq(src_addr);
 		break;
 	}
 
 	switch (dst_len) {
 	case 1:
-		__raw_writeb(tmp, dst_addr);
+		ctrl_outb(tmp, dst_addr);
 		break;
 	case 2:
-		__raw_writew(tmp, dst_addr);
+		ctrl_outw(tmp, dst_addr);
 		break;
 	case 4:
-		__raw_writel(tmp, dst_addr);
+		ctrl_outl(tmp, dst_addr);
 		break;
 	case 8:
-		__raw_writeq(tmp, dst_addr);
+		ctrl_outq(tmp, dst_addr);
 		break;
 	}
 

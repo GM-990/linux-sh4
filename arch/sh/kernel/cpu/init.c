@@ -52,10 +52,10 @@ onchip_setup(dsp);
 static void __init speculative_execution_init(void)
 {
 	/* Clear RABD */
-	__raw_writel(__raw_readl(CPUOPM) & ~CPUOPM_RABD, CPUOPM);
+	ctrl_outl(ctrl_inl(CPUOPM) & ~CPUOPM_RABD, CPUOPM);
 
 	/* Flush the update */
-	(void)__raw_readl(CPUOPM);
+	(void)ctrl_inl(CPUOPM);
 	ctrl_barrier();
 }
 #else
@@ -107,7 +107,7 @@ static void __uses_jump_to_uncached cache_init(void)
 	unsigned long ccr, flags;
 
 	jump_to_uncached();
-	ccr = __raw_readl(CCR);
+	ccr = ctrl_inl(CCR);
 
 	/*
 	 * At this point we don't know whether the cache is enabled or not - a
@@ -151,7 +151,7 @@ static void __uses_jump_to_uncached cache_init(void)
 			for (addr = addrstart;
 			     addr < addrstart + waysize;
 			     addr += current_cpu_data.dcache.linesz)
-				__raw_writel(0, addr);
+				ctrl_outl(0, addr);
 
 			addrstart += current_cpu_data.dcache.way_incr;
 		} while (--ways);
@@ -184,7 +184,7 @@ static void __uses_jump_to_uncached cache_init(void)
 
 	l2_cache_init();
 
-	__raw_writel(flags, CCR);
+	ctrl_outl(flags, CCR);
 	back_to_cached();
 }
 #else

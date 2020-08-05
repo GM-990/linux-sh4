@@ -67,7 +67,7 @@
  */
 static inline __u8 sh_wdt_read_cnt(void)
 {
-	return __raw_readb(WTCNT_R);
+	return ctrl_inb(WTCNT_R);
 }
 
 /**
@@ -79,7 +79,7 @@ static inline __u8 sh_wdt_read_cnt(void)
  */
 static inline void sh_wdt_write_cnt(__u8 val)
 {
-	__raw_writew((WTCNT_HIGH << 8) | (__u16)val, WTCNT);
+	ctrl_outw((WTCNT_HIGH << 8) | (__u16)val, WTCNT);
 }
 
 /**
@@ -89,7 +89,7 @@ static inline void sh_wdt_write_cnt(__u8 val)
  */
 static inline __u8 sh_wdt_read_csr(void)
 {
-	return __raw_readb(WTCSR_R);
+	return ctrl_inb(WTCSR_R);
 }
 
 /**
@@ -101,7 +101,7 @@ static inline __u8 sh_wdt_read_csr(void)
  */
 static inline void sh_wdt_write_csr(__u8 val)
 {
-	__raw_writew((WTCSR_HIGH << 8) | (__u16)val, WTCSR);
+	ctrl_outw((WTCSR_HIGH << 8) | (__u16)val, WTCSR);
 }
 
 #endif /* __KERNEL__ */

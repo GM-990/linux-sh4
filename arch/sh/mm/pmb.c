@@ -125,24 +125,24 @@ static __always_inline void __set_pmb_entry(unsigned long vpn,
 #ifdef CONFIG_PMB_64M_TILES
 	BUG_ON(pos != PMB_VIRT2POS(vpn));
 #endif
-	__raw_writel(0, mk_pmb_addr(pos));
-	__raw_writel(vpn, mk_pmb_addr(pos));
-	__raw_writel(ppn | flags | PMB_V, mk_pmb_data(pos));
+	ctrl_outl(0, mk_pmb_addr(pos));
+	ctrl_outl(vpn, mk_pmb_addr(pos));
+	ctrl_outl(ppn | flags | PMB_V, mk_pmb_data(pos));
 
 	/*
 	 * Read back the value just written. This shouldn't be necessary,
 	 * but when resuming from hibernation it appears to fix a problem.
 	 */
-	__raw_readl(mk_pmb_addr(pos));
+	ctrl_inl(mk_pmb_addr(pos));
 }
 
 static __always_inline void __get_pmb_entry(unsigned long *vpn,
 	unsigned long *ppn, unsigned long *flags, int pos)
 {
 	ctrl_barrier();
-	*vpn   = __raw_readl(mk_pmb_addr(pos)) & PMB_VPN;
-	*ppn   = __raw_readl(mk_pmb_data(pos)) & PMB_PPN;
-	*flags = __raw_readl(mk_pmb_data(pos)) &
+	*vpn   = ctrl_inl(mk_pmb_addr(pos)) & PMB_VPN;
+	*ppn   = ctrl_inl(mk_pmb_data(pos)) & PMB_PPN;
+	*flags = ctrl_inl(mk_pmb_data(pos)) &
 	     (PMB_SZ_MASK|PMB_C|PMB_WT|PMB_UB|PMB_V);
 	ctrl_barrier();
 }
@@ -158,12 +158,12 @@ static void __uses_jump_to_uncached set_pmb_entry(unsigned long vpn,
 static __always_inline void __clear_pmb_entry(int pos)
 {
 #ifdef CONFIG_PMB_64M_TILES
-	__raw_writel(0, mk_pmb_addr(pos));
-	__raw_writel(PMB_POS2VIRT(pos), mk_pmb_addr(pos));
-	__raw_writel((CONFIG_PMB_64M_TILES_PHYS & ~((1 << PMB_FIXED_SHIFT)-1)) |
+	ctrl_outl(0, mk_pmb_addr(pos));
+	ctrl_outl(PMB_POS2VIRT(pos), mk_pmb_addr(pos));
+	ctrl_outl((CONFIG_PMB_64M_TILES_PHYS & ~((1 << PMB_FIXED_SHIFT)-1)) |
 		  PMB_SZ_64M | PMB_WT | PMB_UB | PMB_V, mk_pmb_data(pos));
 #else
-	__raw_writel(0, mk_pmb_addr(pos));
+	ctrl_outl(0, mk_pmb_addr(pos));
 #endif
 }
 
@@ -689,8 +689,8 @@ apply_boot_mappings(struct pmb_mapping *uc_mapping, struct pmb_mapping *ram_mapp
 		unsigned int size;
 		char *start, *end;
 
-		addr = __raw_readl(mk_pmb_addr(i));
-		data = __raw_readl(mk_pmb_data(i));
+		addr = ctrl_inl(mk_pmb_addr(i));
+		data = ctrl_inl(mk_pmb_data(i));
 		if (! (addr & PMB_V))
 			continue;
 
@@ -743,9 +743,9 @@ apply_boot_mappings(struct pmb_mapping *uc_mapping, struct pmb_mapping *ram_mapp
 	} while (entry);
 
 	/* Flush out the TLB */
-	i =  __raw_readl(MMUCR);
+	i =  ctrl_inl(MMUCR);
 	i |= MMUCR_TI;
-	__raw_writel(i, MMUCR);
+	ctrl_outl(i, MMUCR);
 
 	back_to_cached();
 	__asm__ __volatile__("sub	%0, r15" : : "r"(cached_to_uncached));
@@ -871,8 +871,8 @@ static int pmb_seq_show(struct seq_file *file, void *iter)
 		unsigned long addr, data;
 		unsigned int size;
 
-		addr = __raw_readl(mk_pmb_addr(i));
-		data = __raw_readl(mk_pmb_data(i));
+		addr = ctrl_inl(mk_pmb_addr(i));
+		data = ctrl_inl(mk_pmb_data(i));
 		size = pmb_size(data);
 
 		/* 02: V 0x88 0x08 128MB C CB  B */
